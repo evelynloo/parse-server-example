@@ -18,7 +18,7 @@ var pushConfig = {'ios': [
    pfx: devCertPath, // P12 file only
       passphrase: 'printerpix123456',
       bundleId: 'com.syncoms.printerpix',
-      production: true
+      production: false
   }
  ]
 };
