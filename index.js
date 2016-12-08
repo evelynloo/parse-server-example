@@ -11,6 +11,18 @@ if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
+var devCertPath = path.resolve(__dirname, '/resources/APS.p12');
+
+var pushConfig = {'ios': [
+  {
+   pfx: devCertPath, // P12 file only
+      passphrase: 'printerpix123456',
+      bundleId: 'com.syncoms.printerpix',
+      production: true
+  }
+ ]
+};
+
 var api = new ParseServer({
   databaseURI: process.env.MONGODB_URI || 'mongodb://admin:admin@ds113668.mlab.com:13668/printerpix',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -19,26 +31,12 @@ var api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'https://printerpix.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
-  }
+  },
+  push: pushConfig
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
-
-var server = new ParseServer({
-  databaseURI: process.env.MONGODB_URI || 'mongodb://admin:admin@ds113668.mlab.com:13668/printerpix',
-  cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'cLFE2PZVCvg0f9wY72lZzb71djA71L3SImx5msI8',
-  masterKey: process.env.MASTER_KEY || 'pfG8ztWrZnjU3wLsVYmWZlPQ3IIp6zpnzI4qRoAE', //Add your master key here. Keep it secret!
-  push: {
-    ios: {
-      pfx: path.join(__dirname, '/resources/APS.p12'),
-      passphrase: 'printerpix123456',
-      bundleId: 'com.syncoms.printerpix',
-      production: true
-    }
-  }
-});
 
 var app = express();
 
