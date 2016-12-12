@@ -11,7 +11,7 @@ if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
-var devCertPath = path.resolve(__dirname, '/resources/APS.p12');
+var devCertPath = path.resolve(__dirname, '/resources/APS_dev.p12');
 
 var pushConfig = {'ios': [
   {
