@@ -11,15 +11,15 @@ if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
-var devCertPath = path.join(__dirname, '/resources/APS_dev.p12');
-console.log('devCertPath: ', devCertPath);
+var devCertPath = path.join(__dirname, '/resources/APS.p12');
+// console.log('devCertPath: ', devCertPath);
 
 var pushConfig = {'ios': [
   {
    pfx: devCertPath, // P12 file only
       passphrase: 'printerpix123456',
       bundleId: 'com.syncoms.printerpix',
-      production: false
+      production: true
   }
  ]
 };
